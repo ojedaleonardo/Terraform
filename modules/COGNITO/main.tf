@@ -27,6 +27,7 @@ resource "aws_cognito_user_pool" "my_user_pool" {
 resource "aws_cognito_user_pool_client" "my_app_client" {
   name                                 = "MyAppClient"
   user_pool_id                         = aws_cognito_user_pool.my_user_pool.id
+  generate_secret                      = true
   explicit_auth_flows                  = ["ALLOW_USER_SRP_AUTH", "ALLOW_CUSTOM_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
   callback_urls                        = ["https://ava.tutosleo.online/oauth2/idpresponse"]
   supported_identity_providers         = ["COGNITO"]

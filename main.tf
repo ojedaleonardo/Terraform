@@ -34,12 +34,6 @@ module "ava" {
   cognito_client_secret = module.cognito.user_pool_client_secret
 }
 
-# module "ebs" {
-#   source      = "./modules/EBS"
-#   instance_id = module.ec2.instance_id
-#   kms_key_id  = var.kms_key_id
-# }
-
 # module "Redis" {
 #   source                  = "./modules/REDIS"
 #   redis_subnet_group_id   = module.vpc.redis_subnet_group_id

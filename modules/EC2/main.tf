@@ -41,6 +41,10 @@ data "template_file" "redis_cli" {
   template = file("${path.module}/redis_cli.sh")
 }
 
+locals {
+  instance_name = "Ubuntu"
+}
+
 resource "aws_instance" "Ubuntu" {
   depends_on             = [var.natgw_id]
   ami                    = var.ec2_linux_specs.ami
@@ -54,17 +58,14 @@ resource "aws_instance" "Ubuntu" {
   root_block_device {
     volume_type = "gp3"
     volume_size = 8
+
+    tags = {
+      Name = "${local.instance_name}-EBS"
+    }
   }
 
-  # root_block_device {
-  #   volume_type           = "gp3"
-  #   volume_size           = 8
-  #   delete_on_termination = true
-  #   encrypted             = true
-  # }
-
   tags = {
-    Name         = "Ubuntu"
+    Name         = local.instance_name
     PatchManager = "Testing"
   }
 }
@@ -90,6 +91,39 @@ resource "aws_security_group" "SG-Linux" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_lb" "NLB-AVA" {
+  name                       = "NLB-AVA"
+  internal                   = true
+  load_balancer_type         = "network"
+  subnets                    = [var.private_subnet_a_id, var.private_subnet_b_id]
+  enable_deletion_protection = false
+}
+
+resource "aws_lb_target_group" "TG-NGINX" {
+  name        = "TG-NGINX"
+  port        = 80
+  protocol    = "TCP"
+  vpc_id      = var.vpc_id
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "TG-Attachment" {
+  target_group_arn = aws_lb_target_group.TG-NGINX.arn
+  target_id        = aws_instance.Ubuntu.id
+  port             = 80
+}
+
+resource "aws_lb_listener" "LISTENER-NGINX" {
+  load_balancer_arn = aws_lb.NLB-AVA.arn
+  port              = 80
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.TG-NGINX.arn
   }
 }
 

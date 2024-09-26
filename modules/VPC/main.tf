@@ -5,6 +5,28 @@ resource "aws_vpc" "Test-VPC" {
   }
 }
 
+resource "aws_security_group" "default" {
+  vpc_id = aws_vpc.Test-VPC.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Default Security Group for Test-VPC"
+  }
+}
+
 resource "aws_subnet" "Private-A" {
   vpc_id            = aws_vpc.Test-VPC.id
   cidr_block        = var.private_a_cidr

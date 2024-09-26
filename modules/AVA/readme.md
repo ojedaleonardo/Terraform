@@ -24,7 +24,13 @@ Este módulo despliega la infraestructura necesaria para la autenticación y aut
   - **Descripción**: El grupo se identifica con una descripción clara, como "Grupo de Verified Access para Cognito", lo que facilita su administración y uso.
   - **Relación con la Instancia**: El grupo se adjunta a la instancia de Verified Access, lo que permite que las políticas aplicadas al grupo se hereden y se apliquen a la instancia, fortaleciendo así la seguridad y el control de acceso.
 
-Este módulo es fundamental para integrar el control de acceso basado en identidades en aplicaciones que requieren autenticación de usuarios, proporcionando una solución robusta y segura para la gestión de identidades en la nube.
+- **Endpoint de Verified Access**:
+  - Se crea un endpoint de Verified Access que permite a los usuarios autenticarse y acceder a los recursos protegidos de manera segura.
+  - **Descripción**: Este endpoint actúa como punto de entrada para las solicitudes de acceso de los usuarios, validando su identidad a través del proveedor de confianza antes de permitir el acceso.
 
-***en proceso***
+- **Registro en Route 53**:
+  - Se configura un registro en Route 53 para el endpoint de Verified Access, asegurando que el acceso al endpoint sea fácil y accesible a través de un nombre de dominio.
+  - **Descripción**: Esto facilita la gestión de DNS y mejora la experiencia del usuario al acceder a las aplicaciones protegidas.
+
+Este módulo es fundamental para integrar el control de acceso basado en identidades en aplicaciones que requieren autenticación de usuarios, proporcionando una solución robusta y segura para la gestión de identidades en la nube.
 

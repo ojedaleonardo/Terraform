@@ -27,5 +27,6 @@ output "natgw_id" {
 }
 
 output "default_security_group_id" {
-  value = aws_security_group.Test-VPC.id
+  value = aws_security_group.default.id
 }
+

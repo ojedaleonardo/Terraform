@@ -35,7 +35,7 @@ resource "aws_verifiedaccess_instance_trust_provider_attachment" "VAI_Attachment
 }
 
 resource "aws_verifiedaccess_group" "VAG" {
-  depends_on                 = [aws_verifiedaccess_instance.VAI]
+  depends_on                 = [aws_verifiedaccess_instance_trust_provider_attachment.VAI_Attachment]
   description                = "Grupo de Verified Access para Cognito"
   verifiedaccess_instance_id = aws_verifiedaccess_instance.VAI.id
   policy_document            = var.email_policy
@@ -60,8 +60,25 @@ resource "aws_verifiedaccess_endpoint" "VAP" {
   }
   verified_access_group_id = aws_verifiedaccess_group.VAG.id
   security_group_ids       = [var.default_security_group_id]
+
+  tags = {
+    Name = "VAP"
+  }
+
+  timeouts {
+    create = "60m"
+    delete = "60m"
+  }
 }
 
+resource "aws_route53_record" "ava_cname" {
+  depends_on = [aws_verifiedaccess_endpoint.VAP]
+  zone_id    = var.zone_id
+  name       = "ava"
+  type       = "CNAME"
+  ttl        = 300
+  records    = [aws_verifiedaccess_endpoint.VAP.endpoint_domain]
+}
 
 
 

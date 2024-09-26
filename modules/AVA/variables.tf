@@ -48,3 +48,9 @@ variable "default_security_group_id" {
   description = "ID del Security Group por defecto"
   type        = string
 }
+
+variable "zone_id" {
+  description = "Hosted zone ID for tutosleo.online"
+  type        = string
+  default     = "Z09004943QDU343RFH4LG"
+}

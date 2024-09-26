@@ -1,41 +1,41 @@
-resource "aws_instance" "Windows" {
-  ami                    = var.ec2_windows_specs.ami
-  instance_type          = var.ec2_windows_specs.instance_type
-  subnet_id              = var.private_subnet_a_id
-  vpc_security_group_ids = [aws_security_group.SG-Windows.id]
-  iam_instance_profile   = "SSM"
-  key_name               = data.aws_key_pair.Windows.key_name
+# resource "aws_instance" "Windows" {
+#   ami                    = var.ec2_windows_specs.ami
+#   instance_type          = var.ec2_windows_specs.instance_type
+#   subnet_id              = var.private_subnet_a_id
+#   vpc_security_group_ids = [aws_security_group.SG-Windows.id]
+#   iam_instance_profile   = "SSM"
+#   key_name               = data.aws_key_pair.Windows.key_name
 
-  root_block_device {
-    volume_type = "gp3"
-    volume_size = 30
-  }
+#   root_block_device {
+#     volume_type = "gp3"
+#     volume_size = 30
+#   }
 
-  tags = {
-    Name         = "Windows"
-    PatchManager = "Testing"
-  }
-}
+#   tags = {
+#     Name         = "Windows"
+#     PatchManager = "Testing"
+#   }
+# }
 
-resource "aws_security_group" "SG-Windows" {
-  name        = "SG-Windows"
-  description = "Allow RDP inbound traffic"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "SG-Windows" {
+#   name        = "SG-Windows"
+#   description = "Allow RDP inbound traffic"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-  }
+#   ingress {
+#     from_port   = 3389
+#     to_port     = 3389
+#     protocol    = "tcp"
+#     cidr_blocks = ["10.0.0.0/8"]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
 
 data "template_file" "redis_cli" {
   template = file("${path.module}/redis_cli.sh")

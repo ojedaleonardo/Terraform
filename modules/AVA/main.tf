@@ -1,4 +1,5 @@
 resource "aws_verifiedaccess_trust_provider" "cognito" {
+  description              = "Proveedor de Confianza Cognito"
   policy_reference_name    = "cognitopolicy"
   trust_provider_type      = "user"
   user_trust_provider_type = "oidc"
@@ -17,4 +18,20 @@ resource "aws_verifiedaccess_trust_provider" "cognito" {
     Name = "Cognito"
   }
 }
+
+resource "aws_verifiedaccess_instance" "VAI" {
+  depends_on  = [aws_verifiedaccess_trust_provider.cognito]
+  description = "Instancia de Verified Access"
+
+  tags = {
+    Name = "VAI"
+  }
+}
+
+resource "aws_verifiedaccess_instance_trust_provider_attachment" "VAI_Attachment" {
+  depends_on                       = [aws_verifiedaccess_instance.VAI]
+  verifiedaccess_instance_id       = aws_verifiedaccess_instance.VAI.id
+  verifiedaccess_trust_provider_id = aws_verifiedaccess_trust_provider.cognito.id
+}
+
 

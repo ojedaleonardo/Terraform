@@ -1,8 +1,6 @@
-### VPC (Virtual Private Cloud)
+### Módulo VPC
 
-# Despliegue de Infraestructura en AWS usando Terraform
-
-Este repositorio contiene el código de Terraform que configura una infraestructura de red básica en AWS, incluyendo una VPC, subnets públicas y privadas, tablas de ruteo, un NAT Gateway y un Internet Gateway.
+Este modulo de Terraform  aprovisiona los siguientes recursos de AWS, incluyendo una VPC, subnets públicas y privadas, tablas de ruteo, un NAT Gateway y un Internet Gateway.
 
 ## Recursos
 

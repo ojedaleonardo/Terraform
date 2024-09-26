@@ -14,7 +14,7 @@ Este módulo despliega la infraestructura necesaria para la autenticación y aut
 
 - **Scopes**: Se definen los ámbitos (scopes) de acceso que la aplicación solicitará, permitiendo a los usuarios compartir información específica de su perfil, como el correo electrónico y la información básica del usuario.
 
-- **Instancia de Verified Access (AVA)**: 
+- **Instancia de Verified Access**: 
   - Se crea una instancia de Verified Access que se utilizará para gestionar las conexiones y el acceso de los usuarios a los recursos. Esta instancia actúa como un punto de control que autentica a los usuarios antes de permitirles acceder a las aplicaciones o recursos protegidos.
   - **Descripción**: Se proporciona una descripción para la instancia, que ayuda a identificar su propósito dentro de la infraestructura.
   - **Relación con el Proveedor de Confianza**: La instancia de Verified Access se configura para utilizar el proveedor de confianza de Cognito, asegurando que la autenticación se gestione de forma centralizada y segura.

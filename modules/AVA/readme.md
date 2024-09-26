@@ -19,6 +19,11 @@ Este módulo despliega la infraestructura necesaria para la autenticación y aut
   - **Descripción**: Se proporciona una descripción para la instancia, que ayuda a identificar su propósito dentro de la infraestructura.
   - **Relación con el Proveedor de Confianza**: La instancia de Verified Access se configura para utilizar el proveedor de confianza de Cognito, asegurando que la autenticación se gestione de forma centralizada y segura.
 
+- **Grupo de Verified Access**:
+  - Se crea un grupo de Verified Access que permite la gestión y organización de las instancias de Verified Access. Este grupo es fundamental para controlar el acceso a los recursos y para facilitar la asignación de políticas y permisos a las instancias.
+  - **Descripción**: El grupo se identifica con una descripción clara, como "Grupo de Verified Access para Cognito", lo que facilita su administración y uso.
+  - **Relación con la Instancia**: El grupo se adjunta a la instancia de Verified Access, lo que permite que las políticas aplicadas al grupo se hereden y se apliquen a la instancia, fortaleciendo así la seguridad y el control de acceso.
+
 Este módulo es fundamental para integrar el control de acceso basado en identidades en aplicaciones que requieren autenticación de usuarios, proporcionando una solución robusta y segura para la gestión de identidades en la nube.
 
 ***en proceso***

@@ -34,4 +34,12 @@ resource "aws_verifiedaccess_instance_trust_provider_attachment" "VAI_Attachment
   verifiedaccess_trust_provider_id = aws_verifiedaccess_trust_provider.cognito.id
 }
 
+resource "aws_verifiedaccess_group" "VAG" {
+  depends_on                 = [aws_verifiedaccess_instance.VAI]
+  description                = "Grupo de Verified Access para Cognito"
+  verifiedaccess_instance_id = aws_verifiedaccess_instance.VAI.id
 
+  tags = {
+    Name = "VAG"
+  }
+}

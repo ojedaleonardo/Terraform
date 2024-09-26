@@ -127,74 +127,74 @@ resource "aws_lb_listener" "LISTENER-NGINX" {
   }
 }
 
-resource "aws_security_group" "SG-Redis" {
-  name        = "SG-Redis"
-  description = "Allow Redis Inbound traffic"
-  vpc_id      = var.vpc_id
-  tags = {
-    Name = "SG-Redis"
-  }
+# resource "aws_security_group" "SG-Redis" {
+#   name        = "SG-Redis"
+#   description = "Allow Redis Inbound traffic"
+#   vpc_id      = var.vpc_id
+#   tags = {
+#     Name = "SG-Redis"
+#   }
 
-  ingress = [
-    {
-      from_port        = 6379
-      to_port          = 6379
-      protocol         = "tcp"
-      cidr_blocks      = ["172.16.0.0/16"]
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      security_groups  = []
-      self             = false
-      description      = "Inbound Rule"
-    }
-  ]
+#   ingress = [
+#     {
+#       from_port        = 6379
+#       to_port          = 6379
+#       protocol         = "tcp"
+#       cidr_blocks      = ["172.16.0.0/16"]
+#       ipv6_cidr_blocks = []
+#       prefix_list_ids  = []
+#       security_groups  = []
+#       self             = false
+#       description      = "Inbound Rule"
+#     }
+#   ]
 
-  egress = [
-    {
-      from_port        = 0
-      to_port          = 0
-      protocol         = "-1"
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      security_groups  = []
-      self             = false
-      description      = "Outbound rule"
-    }
-  ]
-}
+#   egress = [
+#     {
+#       from_port        = 0
+#       to_port          = 0
+#       protocol         = "-1"
+#       cidr_blocks      = ["0.0.0.0/0"]
+#       ipv6_cidr_blocks = []
+#       prefix_list_ids  = []
+#       security_groups  = []
+#       self             = false
+#       description      = "Outbound rule"
+#     }
+#   ]
+# }
 
-resource "aws_instance" "AWS" {
-  depends_on             = [var.natgw_id]
-  ami                    = var.ec2_aws_specs.ami
-  instance_type          = var.ec2_aws_specs.instance_type
-  subnet_id              = var.private_subnet_b_id
-  vpc_security_group_ids = [aws_security_group.SG-AWS.id]
-  iam_instance_profile   = "SSM"
-  key_name               = data.aws_key_pair.Linux.key_name
+# resource "aws_instance" "AWS" {
+#   depends_on             = [var.natgw_id]
+#   ami                    = var.ec2_aws_specs.ami
+#   instance_type          = var.ec2_aws_specs.instance_type
+#   subnet_id              = var.private_subnet_b_id
+#   vpc_security_group_ids = [aws_security_group.SG-AWS.id]
+#   iam_instance_profile   = "SSM"
+#   key_name               = data.aws_key_pair.Linux.key_name
 
-  tags = {
-    Name         = "AWS"
-    PatchManager = "Testing"
-  }
-}
+#   tags = {
+#     Name         = "AWS"
+#     PatchManager = "Testing"
+#   }
+# }
 
-resource "aws_security_group" "SG-AWS" {
-  name        = "SG-AWS"
-  description = "Allow SSH inbound traffic"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "SG-AWS" {
+#   name        = "SG-AWS"
+#   description = "Allow SSH inbound traffic"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-  }
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = ["10.0.0.0/8"]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }

@@ -28,6 +28,6 @@ El código está organizado en módulos para facilitar la reutilización y mante
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   git clone https://github.com/ojedaleonardo/Terraform.git
 
 2. Modifica a tu gusto lo que requieras :) 

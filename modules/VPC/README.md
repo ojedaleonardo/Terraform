@@ -101,7 +101,5 @@ Este modulo de Terraform  aprovisiona los siguientes recursos de AWS, incluyendo
 - **Descripción**: Este recurso crea un grupo de subnets específico para usar con Amazon ElastiCache. El grupo de subnets permite que ElastiCache despliegue instancias en las subnets privadas dentro de la VPC.
 - **Subnets asociadas**: El grupo incluye las subnets privadas Private-A y Private-B, proporcionando redundancia y alta disponibilidad en dos zonas de disponibilidad diferentes (us-east-1a y us-east-1b).
 
-## Estructura del Código
 
-El código está organizado en módulos para facilitar la reutilización y mantener una estructura limpia y escalable. Cada servicio de AWS se encuentra en su propio módulo.
 

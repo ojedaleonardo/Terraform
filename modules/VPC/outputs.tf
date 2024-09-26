@@ -25,3 +25,7 @@ output "public_subnet_b_id" {
 output "natgw_id" {
   value = aws_nat_gateway.NATGW.id
 }
+
+output "default_security_group_id" {
+  value = aws_security_group.Test-VPC.id
+}

@@ -38,8 +38,34 @@ resource "aws_verifiedaccess_group" "VAG" {
   depends_on                 = [aws_verifiedaccess_instance.VAI]
   description                = "Grupo de Verified Access para Cognito"
   verifiedaccess_instance_id = aws_verifiedaccess_instance.VAI.id
+  policy_document            = var.email_policy
 
   tags = {
     Name = "VAG"
   }
 }
+
+resource "aws_verifiedaccess_endpoint" "VAP" {
+  application_domain     = "ava.tutosleo.online"
+  attachment_type        = "vpc"
+  description            = "Punto de conexion Verified Access"
+  domain_certificate_arn = "arn:aws:acm:us-east-1:059140706790:certificate/a305792a-a92c-435e-900e-13ba8059f2d4"
+  endpoint_domain_prefix = "ava"
+  endpoint_type          = "load-balancer"
+  load_balancer_options {
+    load_balancer_arn = var.load_balancer_arn
+    port              = 80
+    protocol          = "http"
+    subnet_ids        = [var.private_subnet_a_id, var.private_subnet_b_id]
+  }
+  verified_access_group_id = aws_verifiedaccess_group.VAG.id
+  security_group_ids       = [var.default_security_group_id]
+}
+
+
+
+
+
+
+
+

@@ -12,6 +12,8 @@ Este repositorio contiene el código de Terraform modulado por servicios de AWS 
 
 - [COGNITO](./modules/COGNITO/README.md): Despliega la gestión de usuarios y autenticación a través de Amazon Cognito. Se configura un grupo de usuarios con políticas de contraseña, un cliente de aplicación para la autenticación, y se crean usuarios específicos para el acceso. Esta arquitectura proporciona una solución robusta y segura para la autenticación en aplicaciones web y móviles.
 
+- [AVA](./modules/AVA/readme.md): Despliega la infraestructura necesaria para la autenticación y autorización de usuarios mediante Amazon Verified Access utilizando Amazon Cognito.
+
 ## Estructura del Código
 
 El código está organizado en módulos para facilitar la reutilización y mantener una estructura limpia y escalable. Cada servicio de AWS se encuentra en su propio módulo.
